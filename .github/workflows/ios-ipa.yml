@@ -9,7 +9,8 @@ on:
 
 jobs:
   ios:
-    runs-on: macos-15
+    # Expo SDK 57 / RN 0.86 need Xcode 26.4+; macos-26 ships Xcode 26.6 by default.
+    runs-on: macos-26
     timeout-minutes: 60
     defaults:
       run:
@@ -57,7 +58,7 @@ jobs:
             echo "::group::xcodebuild errors"
             grep -E "error:|fatal error|xcodebuild: error" xcodebuild.log | head -n 40
             echo "::endgroup::"
-            grep -E "error:|fatal error|xcodebuild: error" xcodebuild.log | sort -u | head -n 12 | cut -c1-900 | sed 's/^/::error::/'
+            grep -E -A6 "error:|fatal error|xcodebuild: error" xcodebuild.log | grep -v "^--$" | head -n 24 | cut -c1-900 | sed 's/^/::error::/'
             echo "----- last 60 lines -----"
             tail -n 60 xcodebuild.log
             exit "$status"
