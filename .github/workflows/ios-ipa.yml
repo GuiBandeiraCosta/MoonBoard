@@ -31,19 +31,32 @@ jobs:
           npx expo prebuild --platform ios --no-install --clean
           cd ios && pod install
 
+      - name: Xcode info
+        run: |
+          xcodebuild -version
+          ls -d /Applications/Xcode*.app | sed 's/^/::notice::available /'
+
       - name: Build Release .app without code signing
         run: |
-          xcodebuild -quiet \
-            -workspace ios/Moonlight.xcworkspace \
-            -scheme Moonlight \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM=""
+          set -o pipefail
+          xcodebuild             -workspace ios/Moonlight.xcworkspace             -scheme Moonlight             -configuration Release             -destination 'generic/platform=iOS'             -derivedDataPath build             CODE_SIGNING_ALLOWED=NO             CODE_SIGNING_REQUIRED=NO             CODE_SIGN_IDENTITY=""             DEVELOPMENT_TEAM=""             2>&1 | tee xcodebuild.log | grep -E --line-buffered "error:|warning: .*deprecat|BUILD (SUCCEEDED|FAILED)|Compiling|Linking" | tail -n 200 || status=$?
+          if [ "${status:-0}" != "0" ]; then
+            echo "::group::xcodebuild errors"
+            grep -E "error:|error|fatal" xcodebuild.log | head -n 40
+            echo "::endgroup::"
+            grep -E "error:|fatal error|xcodebuild: error" xcodebuild.log | head -n 12 | cut -c1-900 | sed 's/^/::error::/'
+            tail -n 60 xcodebuild.log
+            exit "$status"
+          fi
           test -d build/Build/Products/Release-iphoneos/Moonlight.app
+
+      - name: Upload xcodebuild log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: moonboard/xcodebuild.log
+          retention-days: 7
 
       - name: Package .ipa
         run: |
