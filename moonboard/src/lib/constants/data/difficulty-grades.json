@@ -1,0 +1,122 @@
+[
+{
+"difficulty": 10,
+"font": "4A",
+"v": "V0"
+},
+{
+"difficulty": 11,
+"font": "4B",
+"v": "V0"
+},
+{
+"difficulty": 12,
+"font": "4C",
+"v": "V0"
+},
+{
+"difficulty": 13,
+"font": "5A",
+"v": "V1"
+},
+{
+"difficulty": 14,
+"font": "5B",
+"v": "V1"
+},
+{
+"difficulty": 15,
+"font": "5C",
+"v": "V2"
+},
+{
+"difficulty": 16,
+"font": "6A",
+"v": "V3"
+},
+{
+"difficulty": 17,
+"font": "6A+",
+"v": "V3"
+},
+{
+"difficulty": 18,
+"font": "6B",
+"v": "V4"
+},
+{
+"difficulty": 19,
+"font": "6B+",
+"v": "V4"
+},
+{
+"difficulty": 20,
+"font": "6C",
+"v": "V5"
+},
+{
+"difficulty": 21,
+"font": "6C+",
+"v": "V5"
+},
+{
+"difficulty": 22,
+"font": "7A",
+"v": "V6"
+},
+{
+"difficulty": 23,
+"font": "7A+",
+"v": "V7"
+},
+{
+"difficulty": 24,
+"font": "7B",
+"v": "V8"
+},
+{
+"difficulty": 25,
+"font": "7B+",
+"v": "V8"
+},
+{
+"difficulty": 26,
+"font": "7C",
+"v": "V9"
+},
+{
+"difficulty": 27,
+"font": "7C+",
+"v": "V10"
+},
+{
+"difficulty": 28,
+"font": "8A",
+"v": "V11"
+},
+{
+"difficulty": 29,
+"font": "8A+",
+"v": "V12"
+},
+{
+"difficulty": 30,
+"font": "8B",
+"v": "V13"
+},
+{
+"difficulty": 31,
+"font": "8B+",
+"v": "V14"
+},
+{
+"difficulty": 32,
+"font": "8C",
+"v": "V15"
+},
+{
+"difficulty": 33,
+"font": "8C+",
+"v": "V16"
+}
+]
