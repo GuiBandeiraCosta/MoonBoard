@@ -33,6 +33,15 @@ Quick logic test without a device (Node 22 can strip types):
 node --experimental-strip-types path/to/test.mts   # import from 'file:///C:/.../src/lib/ble/protocol.ts'
 ```
 
+## Installing on phones without app stores
+
+- `.github/workflows/ios-ipa.yml` builds an **unsigned .ipa** on a macOS runner (`workflow_dispatch` or `v*` tag).
+  Sign + install from Windows with Sideloadly using a free Apple ID (7-day validity, re-sideload weekly). A paid
+  Apple Developer account + EAS is the only route to a 1-year signature / TestFlight.
+- `.github/workflows/android-apk.yml` builds a release APK (debug keystore) installable directly on Android.
+- Native `ios/` and `android/` folders are gitignored; CI regenerates them with `expo prebuild`.
+- Scheme/workspace name is `Moonlight` (from `expo.name`); renaming the app in `app.json` breaks the iOS workflow paths.
+
 ## Web preview (how to see it on a PC)
 
 There is no iOS Simulator on Windows, so `npm run web` + Chrome's device toolbar is the preview path. Metro picks
