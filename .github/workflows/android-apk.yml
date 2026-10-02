@@ -25,7 +25,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
+      # ubuntu-latest ships the Android SDK; ANDROID_HOME is preset.
       - run: npm ci
       - run: npx expo prebuild --platform android --clean
       - run: cd android && ./gradlew assembleRelease --no-daemon
