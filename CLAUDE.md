@@ -35,7 +35,9 @@ node --experimental-strip-types path/to/test.mts   # import from 'file:///C:/...
 
 ## Installing on phones without app stores
 
-- `.github/workflows/ios-ipa.yml` builds an **unsigned .ipa** on a macOS runner (`workflow_dispatch` or `v*` tag).
+- `.github/workflows/ios-ipa.yml` builds an **unsigned .ipa** on a `macos-26` runner (`workflow_dispatch` or `v*` tag).
+  Expo SDK 57 needs Xcode 26.4+; `macos-15` only has 16.x and fails at "Could not resolve package dependencies".
+  First green run: tag v0.1.4 (2026-10-02). Job logs are admin-only via API, but `::error::` annotations are public.
   Sign + install from Windows with Sideloadly using a free Apple ID (7-day validity, re-sideload weekly). A paid
   Apple Developer account + EAS is the only route to a 1-year signature / TestFlight.
 - `.github/workflows/android-apk.yml` builds a release APK (debug keystore) installable directly on Android.
