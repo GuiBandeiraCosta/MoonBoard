@@ -27,11 +27,13 @@ jobs:
         run: npm ci
 
       - name: Generate native iOS project (prebuild + pod install)
-        run: npx expo prebuild --platform ios --no-install --clean && (cd ios && pod install)
+        run: |
+          npx expo prebuild --platform ios --no-install --clean
+          cd ios && pod install
 
       - name: Build Release .app without code signing
         run: |
-          xcodebuild \
+          xcodebuild -quiet \
             -workspace ios/Moonlight.xcworkspace \
             -scheme Moonlight \
             -configuration Release \
@@ -40,8 +42,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
-            | xcbeautify --quiet || true
+            DEVELOPMENT_TEAM=""
           test -d build/Build/Products/Release-iphoneos/Moonlight.app
 
       - name: Package .ipa
